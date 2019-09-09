@@ -13,6 +13,7 @@ Slick uses convention over configuration wherever Slick can.  Logical, pretty co
 | **()**&nbsp;parenthesis                | (ref&nbsp;art)         | Identifies a layer that will always be hidden. Must be the first and last character. |
 | **!**&nbsp;exclamation&nbsp;point      | Background!            | Identifies a layer that will always be shown.  Can appear anywhere in the layer name: `Here!`, `h!r!`, `!! Here`, `--here!--`, etc.  But, is meaningless inside parenthesis like `(Here!)`. |
 | **--&nbsp;--**&nbsp;double&nbsp;dashes | --Fred's&nbsp;dialog-- | Identifies a parent layer to option layers.  Think of it as a layer containing a list of versions of the art.  **Do not use characters in the names of the child option layers that cannot become part of a filename.** |
+| **,**&nbsp;comma                       | Red,&nbsp;Blue          | When appearing in the name of an option layer, identifies an option layer that will show for more than one option.  The list can be as long as what will fit in a layer name. |
 |   | Hello | Any layer not named as above--and not an option layer under a parent layer--will keep it's visibility as is. |
 
 Pretty simple... er... slick, eh?
