@@ -137,6 +137,10 @@ All parameters are optional but you really need to specify `-d` if you don't wan
 
 **A:** Yes and no.  Be aware that the **()** and **!** conventions can appear at any level and will affect all children.  This is a good thing, I think.  If these are on an option layer, however, they are meaningless.  Do not, especially, give option layers children, as they will be seen as more option layers and the results will likely be odd to you.
 
+**Q:** How is SLiCk so fast?
+
+**A:** Because it is slick.
+
 ## To-do list
 
 - Permutations.
