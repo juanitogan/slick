@@ -86,7 +86,7 @@ If your filename ends with `__master__` or `__MASTER__` or any case form such as
 
 3. Restart Inkscape.
 
-4. Fin.
+4. Fin.  You'll find Slick here: Extensions > Export > SLiCk Layer Combinator.
 
 ## Example use of Slick
 
@@ -147,8 +147,8 @@ All parameters are optional but you really need to specify `-d` if you don't wan
 
 - Permutations.
   - Slick is not yet slick enough to process permutations.  Bugger.  If Slick ever is that slick, Slick will likely use a double-star convention (\*\*&nbsp;\*\*) much like the double-dash parent layers for options.  Permutations are scenarios like when you want all the layers in one permutation group to be combined one-by-one with all the layers in another permutation group (and/or with the non-permutating option layers).  There is a (much-more-boringly-named-:tongue:-although-"fluffware"-sounds-pretty-exciting-:wink:) tool that does this: [export_layer_combinations](https://github.com/fluffware/export_layer_combinations).  It outputs PNGs.
-  - Hmm, like that other tool does, I may also need to add a group identifier convention to allow a single permutation group to appear in more than one parent layer.  This could get messy real quick... which sounds very unslick.  Since this is likely to slip up artists that may not need such fancy-pantsiness, this is sounding a lot like this should be relegated to a spinoff tool.  Maybe called: _SLiP Layer Permutator_.
-  - I, personally, have no need for automated permutations yet.  Thus, someone will need to talk me into building such a feature for when I get bored with all the other multiverse-improvement-attempting-but-often-failing-at-being-a-hero stuff I do.  I do have permutations of the example car art seen above but, currently, I handle them two other ways.  For example, that `(pilot)` layer could be split into two permutation layers called `Occupied` and `Unoccupied`.  But, instead of permutating out to 16 files instead of 8, I just handle the pilot art with a single add-in sprite.  I also have car-damage permutations, but the art for the damage is so different that I choose to handle that scenario with a separate master file for each damage level.
+  - Hmm, like that other tool does, I may also need to add a group-identifier convention to allow a single permutation group to appear in more than one parent layer.  This could get messy real quick... which sounds very unslick.  Since this is likely to slip up artists that may not need such fancy-pantsiness, this is sounding a lot like this should be relegated to a spinoff tool.  Maybe called: _SLiP Layer Permutator_.
+  - I, personally, have no need for automated permutations yet.  Thus, someone will need to talk me into building such a feature for when I get bored with all the other multiverse-improvement-attempting-but-often-failing-at-being-a-hero stuff I do.  I do have permutations of the example car art seen above but, currently, I handle them two other ways.  For example, that `(pilot)` layer could be split into two permutation layers called `Occupied` and `Unoccupied`.  But, instead of permutating out to 16 files versus 8 files, I just handle the pilot art with a single add-in sprite.  I also have car-damage permutations, but the art for the damage is so different that I choose to handle that scenario with a separate master file for each damage level.
 
 - Consider an option to delete hidden layers (as mentioned earlier).
 
