@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+
+	<_name>SLiCk Layer Combinator</_name>
+	<id>juanitogan.inkscape.slick_layer_combinator</id>
+
+	<dependency type="executable" location="extensions">slick_layer_combinator.py</dependency>
+	<dependency type="executable" location="extensions">inkex.py</dependency>
+
+	<_param name="name" type="description" appearance="header">Option layers to cycle through:</_param>
+	<param name="all" type="optiongroup" gui-text="">
+		<_option value="true">Find and create exports for all option layers.</_option>
+		<_option value="false">Create exports for only the following option layer(s) . . . . . . . . . .</_option>
+	</param>
+	<param name="layers" type="string" indent="2" _gui-text="Layer names:"></param>
+	<_param name="name" type="description" indent="3">Enter one or more layer names (comma-separated).</_param>
+	<_param name="name" type="description" appearance="header">File export path:</_param>
+	<param name="directory" type="string" _gui-description="Folder path to save files to (supports ~ on Windows too)" _gui-text="">~/</param>
+
+	<effect needs-document="true" needs-live-preview="false">
+		<effects-menu hidden="false">
+			<submenu _name="Export"/>
+		</effects-menu>
+		<menu-tip>Auto-sets layer visibility by naming convention and exports an Inkscape SVG for each option layer.</menu-tip>
+		<object-type>all</object-type>
+	</effect>
+
+	<script>
+		<command reldir="extensions" interpreter="python">slick_layer_combinator.py</command>
+	</script>
+
+</inkscape-extension>
