@@ -2,11 +2,11 @@
 
 **SLiCk** : the Slick Layer Combinator for Inkscape
 
-Like so many awesome extensions that came before Slick (none of which, admittedly, I tried, even though I read about many) Slick helps you produce multiple versions of a drawing from a single master drawing.  So, what makes slick different?  Well... um... it's slick!  But, really, Slick helps you manage your layers in multi-use ways and not just one layer per output drawing, and unslick stuff like that.
+Like so many awesome extensions that came before Slick (none of which, admittedly, I tried, even though I read about many) Slick helps you produce multiple versions of a drawing from a single master drawing.  So, what makes slick different?  Well... um... it's slick!  Slick helps you manage your layers in multi-use ways and not just one layer per output drawing, and unslick stuff like that.
 
 I use Slick for producing game sprites for a top-down game that shades and highlights the sprite in different ways as it rotates in the sunlight.  Thus, each sprite needs eight different versions for the eight rotations.  Another excellent use for Slick might be cartooning in multiple languages.  Others have asked for such a tool for educational drawings of system processes and who-knows-what.
 
-Slick uses convention over configuration wherever Slick can.  Logical, pretty convention.  In fact, I established the convention initially to visually help my manual workflow.  I only decided to automate it with a script a few days later.  Here's the convention:
+Slick uses convention over configuration wherever Slick can.  Logical, pretty convention.  In fact, I established the convention initially to visually help my _manual_ workflow, so I know it is beautiful.  I only later decided to automate it with a script.  Here's the convention:
 
 | Convention | Example | Description |
 |:-----------|:--------|:------------|
@@ -50,7 +50,7 @@ Slick output:
 - Cartoon_French.svg
 - Cartoon_German.svg
 
-Furthermore, don't worry about spaces (or lack of spaces) around commas in option layer names.  Slick doesn't care about such spaces in option layer names.  Slick doesn't understand why programmer's found it so hard to scrub spaces from credit card numbers in the early days of the internet.  Slick _does care_ about leading and trailing spaces in the names of the other layers, so be careful there maybe.  Slick could ignore these spaces too if you really wanted Slick to... but Slick really doesn't want to dictate more than Slick needs to.
+Furthermore, don't worry about spaces (or lack of spaces) around commas in option layer names.  Slick doesn't care about such spaces in option layer names.  Slick doesn't understand why programmers in the early days of the internet found it so hard to help customers out by scrubbing spaces automatically from credit card numbers.  Slick _does care_ about leading and trailing spaces in the names of the other layers, so be careful there maybe.  Slick could ignore these spaces too if you really wanted Slick to... but Slick really doesn't want to dictate more than Slick needs to.
 
 Now, combine it all and Slick gets super slick, producing three files once again:
 
@@ -80,11 +80,13 @@ If your filename ends with `__master__` or `__MASTER__` or any case form such as
 
 ## Installation
 
-Copy the contents of the extensions folder in this GitHub repo to your Inkscape "User extensions" folder.  You can find that location in Inkscape here: Edit > Preferences > System.
+1. Download the latest release from the [Releases page](https://github.com/juanitogan/slick/releases).  (Or, any other way you like to git yer GitHub files.)
 
-Restart Inkscape.
+2. Unzip the INX and PY files to your Inkscape "User extensions" folder.  You can find that location in Inkscape here: Edit > Preferences > System.
 
-Fin.
+3. Restart Inkscape.
+
+4. Fin.
 
 ## Example use of Slick
 
@@ -135,9 +137,9 @@ All parameters are optional but you really need to specify `-d` if you don't wan
 
 **Q:** Can I use other layer hierarchies in my drawing?
 
-**A:** Yes and no.  Be aware that the **()** and **!** conventions can appear at any level and will affect all children.  This is a good thing, I think.  If these are on an option layer, however, they are meaningless.  Do not, especially, give option layers children, as they will be seen as more option layers and the results will likely be odd to you.
+**A:** Yes and no.  Be aware that the **()** and **!** conventions can appear at any level and will affect all children.  This is a good thing, I think.  If these are on an option layer, however, they are meaningless.  **Do not**, especially, create child layers under option layers, as they will be seen as more option layers and the results will likely be odd to you (and me).
 
-**Q:** How is SLiCk so fast?
+**Q:** Why is SLiCk so fast compared to other extensions?
 
 **A:** Because it is slick.
 
@@ -145,6 +147,8 @@ All parameters are optional but you really need to specify `-d` if you don't wan
 
 - Permutations.
   - Slick is not yet slick enough to process permutations.  Bugger.  If Slick ever is that slick, Slick will likely use a double-star convention (\*\*&nbsp;\*\*) much like the double-dash parent layers for options.  Permutations are scenarios like when you want all the layers in one permutation group to be combined one-by-one with all the layers in another permutation group (and/or with the non-permutating option layers).  There is a (much-more-boringly-named-:tongue:-although-"fluffware"-sounds-pretty-exciting-:wink:) tool that does this: [export_layer_combinations](https://github.com/fluffware/export_layer_combinations).  It outputs PNGs.
+  - Hmm, like that other tool does, I may also need to add a group identifier convention to allow a single permutation group to appear in more than one parent layer.  This could get messy real quick... which sounds very unslick.  Since this is likely to slip up artists that may not need such fancy-pantsiness, this is sounding a lot like this should be relegated to a spinoff tool.  Maybe called: _SLiP Layer Permutator_.
+  - I, personally, have no need for automated permutations yet.  Thus, someone will need to talk me into building such a feature for when I get bored with all the other multiverse-improvement-attempting-but-often-failing-at-being-a-hero stuff I do.  I do have permutations of the example car art seen above but, currently, I handle them two other ways.  For example, that `(pilot)` layer could be split into two permutation layers called `Occupied` and `Unoccupied`.  But, instead of permutating out to 16 files instead of 8, I just handle the pilot art with a single add-in sprite.  I also have car-damage permutations, but the art for the damage is so different that I choose to handle that scenario with a separate master file for each damage level.
 
 - Consider an option to delete hidden layers (as mentioned earlier).
 
