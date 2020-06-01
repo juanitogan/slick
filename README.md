@@ -13,7 +13,7 @@ Slick uses convention over configuration wherever Slick can.  Logical, pretty co
 | **()**&nbsp;parenthesis                | (ref&nbsp;art)         | Identifies a layer that will always be hidden. Must be the first and last character. |
 | **!**&nbsp;exclamation&nbsp;point      | Background!            | Identifies a layer that will always be shown.  Can appear anywhere in the layer name: `Here!`, `h!r!`, `!! Here`, `--here!--`, etc.  But, is meaningless inside parenthesis like `(Here!)`. |
 | **--&nbsp;--**&nbsp;double&nbsp;dashes | --Fred's&nbsp;dialog-- | Identifies a parent layer to option layers.  Think of it as a layer containing a list of versions of the art.  **Do not use special characters (such as slashes /\\) in the names of the child option layers that would not be valid in a filename.** |
-| **,**&nbsp;comma                       | Red,&nbsp;Blue          | When appearing in the name of an option layer, identifies an option layer that will show for more than one option.  The list can be as long as what will fit in a layer name. |
+| **,**&nbsp;comma                       | Red,&nbsp;Blue         | When appearing in the name of an option layer, identifies an option layer that will show for more than one option.  The list can be as long as what will fit in a layer name. |
 |   | Hello | Any layer not named as above--and not an option layer under a parent layer--will keep it's visibility as is. |
 
 Pretty simple... er... slick, eh?
@@ -71,17 +71,13 @@ Slick output:
 - Cartoon_French.svg
 - Cartoon_German.svg
 
-### Python warning!
-
-Eeek!  A snake!  Due to a funky nuance of the Python language (that I won't bore you with the details of) you cannot end the output directory string with a backslash like so: `C:\GRITS Racing\Art\Car\`  That really messes with the python's brain.  (Probably the fault of the writer of the OptionParser package, really.)  So, leave it off (preferred), use a forward slash (platform doesn't matter with Slick), or use a double backslash (weirdly enough).  No worries, Slick is slick enough to add a slash if Slick can't find one.  So, enter your path like so: `C:\GRITS Racing\Art\Car`
-
 ### Bonus feature (sort of)
 
 If your filename ends with `__master__` or `__MASTER__` or any case form such as `__MAsTer__`, Slick will strip this from the output filename.  For example, a source filename of `Cartoon__master__.svg` will still output the same filenames exampled above.  (But, who names a file like this other than me???)
 
 ## Installation
 
-1. Download the latest release from the [Releases page](https://github.com/juanitogan/slick/releases).  (Or, any other way you like to git yer GitHub files.)
+1. Download the latest release from the [Releases page](https://github.com/juanitogan/slick/releases).  (Or, any other way you like to git yer GitHub files.)  Be sure to choose the Slick release appropriate for your Inkscape version: v0.92.x, or v1.0 and later.
 
 2. Unzip the INX and PY files to your Inkscape "User extensions" folder.  You can find that location in Inkscape here: Edit > Preferences > System.
 
@@ -107,11 +103,13 @@ Slick output:
 - Car_270.svg
 - Car_315.svg
 
-## Pipline automation
+## Pipeline automation
 
-I didn't find any help on the net for command-line control of Inkscape extension scripts (the one's that require parameters like Slick does)... (why?) but this is how I figured it can be done.  Here's an example DOS batch file:
+I didn't find any help on the net for command-line control of Inkscape extension scripts (the one's that require parameters like Slick does)... (why?) but, after reasoning it out, I eventually got it.  Here's an example DOS batch file:
 
-```
+### Inkscape 0.92
+
+```batch
 @echo off
 pushd "C:\Program Files\Inkscape\share\extensions"
 "C:\Program Files\Inkscape\python.exe" ^
@@ -122,7 +120,25 @@ pushd "C:\Program Files\Inkscape\share\extensions"
 popd
 ```
 
-Basically, what the above does is run Inkscape's copy of Python from Inkscape's `extensions` folder.  It is required to run from here so that Slick's script can pick up the Inkscape packages needed to do Slick's thing.  Then, because this is running from a far-away folder in a far-away land, you must fully qualify the output directory and the master SVG file.
+Basically, what the above does is run Inkscape's copy of Python from Inkscape's `extensions` folder.  Python is required to run from here so that Slick's script can pick up the Inkscape packages needed to do Slick's thing.  Then, because this is running from a far-away folder in a far-away land, you must fully qualify the output directory and the master SVG file.
+
+### Inkscape 1.0
+
+```batch
+@echo off
+pushd "C:\Program Files\Inkscape\bin"
+setlocal
+set PYTHONPATH=C:\Program Files\Inkscape\share\inkscape\extensions
+python ^
+  "%USERPROFILE%\AppData\Roaming\inkscape\extensions\slick_layer_combinator.py" ^
+  -a true ^
+  -d "C:\GRITS Racing\Art\Car" ^
+  "C:\GRITS Racing\Art\Car\Car__master__.svg"
+endlocal
+popd
+```
+
+Inkscape appears to be dead set on making this as hard to figure out as possible.  Now, (after hacking 1.0 for intel) it seems we have to run from the `bin` folder to find the DLLs and add Inkscape's `extensions` folder to the Python path.  Let's hope they don't change it up again.
 
 **slick_layer_combinator.py** parameters:
 
@@ -133,6 +149,10 @@ Basically, what the above does is run Inkscape's copy of Python from Inkscape's 
 ```
 
 All parameters are optional but you really need to specify `-d` if you don't want to go hunting for your files in some far-away folder.  Use either `-a` or `-l` if want a meaningful file output... otherwise, you'll get a `*_none.svg` file with all option layers hidden.
+
+### Python warning!
+
+Eeek!  A snake!  Due to a funky nuance of the Python language (that I won't bore you with the details of) you cannot end the output directory string with a backslash like so: `C:\GRITS Racing\Art\Car\`.  That really messes with the python's brain.  (Probably the fault of the writer of the OptionParser and arg_parser packages, really.)  So, leave off the final backslash like so: `C:\GRITS Racing\Art\Car`.  No worries, Slick is slick enough to add a slash if Slick can't find one.  If you must, you could end with a forward slash (slash direction doesn't matter with Slick) or a double backslash (weirdly enough).
 
 ## FAQ
 
@@ -161,7 +181,12 @@ All parameters are optional but you really need to specify `-d` if you don't wan
 
 ### To-not-do list
 
-- Add options for PNG or other format exports.
-  - Inkscape SVGs only.  Producing PNGs and such are what your pipeline scripts are for, of which, Slick is only just another slick tool in your slick toolset.
+- Add options for PNG export (and/or other formats).
+  - Nope: Inkscape SVGs only.
+  - Producing PNGs and such are what your pipeline scripts are for.  Of which, Slick is only just another slick tool in your slick toolset.
+    - For example, after using Slick to generate a bunch of SVGs, you may then want to run a script that uses the [Inkscape command-line](https://wiki.inkscape.org/wiki/index.php?title=Using_the_Command_Line) to export a PNG for each.
+    - It is also worth noting that [ImageMagick](https://imagemagick.org/) and [GIMP](https://www.gimp.org/) use the same rendering library for SVGs as Inkscape.  I use ImageMagick in some of my scripts.  (ImageMagick also has a GhostScript rendering option, if really wanting something different and less nice.)
+    - Most of my SVGs, however, I can simply import into Unity via [SVG Importer](http://svgimporter.com/), which converts them to meshes.  Other tools can do similar mesh conversions.
+    - Note to self: Blog about how to squeeze a bit more image quality out of PNGs with ImageMagick and oversampling.  Note also that Inkscape 1.0 PNG export now has a much-wanted antialiasing setting with a few quality options.
 
-- Well, maybe add plain SVG export... okay, no!
+- Well, maybe add plain SVG export... um... nope.
