@@ -2,7 +2,7 @@
 
 **SLiCk** : the Slick Layer Combinator for Inkscape
 
-Like so many awesome extensions that came before Slick (none of which, admittedly, I tried, even though I read about many) Slick helps you produce multiple versions of a drawing from a single master drawing.  So, what makes slick different?  Well... um... it's slick!  Slick helps you manage your layers in multi-use ways and not just one layer per output drawing, and unslick stuff like that.
+Like so many awesome extensions that came before Slick (none of which, admittedly, I tried, even though I read about many) Slick helps you produce multiple versions of a drawing from a single master drawing.  So, what makes slick different?  Well... um... it's slick!  Slick promotes **intelligent layer and child-layer use** (instead of just one layer per output drawing and unslick stuff like that).
 
 I use Slick for producing game sprites for a top-down game that shades and highlights the sprite in different ways as it rotates in the sunlight.  Thus, each sprite needs eight different versions for the eight rotations.  Another excellent use for Slick might be cartooning in multiple languages.  Others have asked for such a tool for educational drawings of system processes and who-knows-what.
 
@@ -10,15 +10,17 @@ Slick uses convention over configuration wherever Slick can.  Logical, pretty co
 
 | Convention | Example | Description |
 |:-----------|:--------|:------------|
-| **()**&nbsp;parenthesis                | (ref&nbsp;art)         | Identifies a layer that will always be hidden. Must be the first and last character. |
-| **!**&nbsp;exclamation&nbsp;point      | Background!            | Identifies a layer that will always be shown.  Can appear anywhere in the layer name: `Here!`, `h!r!`, `!! Here`, `--here!--`, etc.  But, is meaningless inside parenthesis like `(Here!)`. |
-| **--&nbsp;--**&nbsp;double&nbsp;dashes | --Fred's&nbsp;dialog-- | Identifies a parent layer to option layers.  Think of it as a layer containing a list of versions of the art.  **Do not use special characters (such as slashes /\\) in the names of the child option layers that would not be valid in a filename.** |
-| **,**&nbsp;comma                       | Red,&nbsp;Blue         | When appearing in the name of an option layer, identifies an option layer that will show for more than one option.  The list can be as long as what will fit in a layer name. |
+| `(`&nbsp;`)` parenthesis          | (ref&nbsp;art)         | Identifies a layer that will always be hidden. Must be the first and last character. |
+| `!` exclamation&nbsp;point        | Background!            | Identifies a layer that will always be shown.  Can appear anywhere in the layer name: `Here!`, `h!r!`, `!! Here`, `--here!--`, etc.  But, is meaningless inside parenthesis like `(Here!)`. |
+| `--`&nbsp;`--` double&nbsp;dashes | --Fred's&nbsp;dialog-- | Identifies a layer as a _parent layer_ to _option layers_.  That is, each child layer to this layer is what we are calling an "option layer" and option layers are where each variation of the master art will be drawn.  Think of this as a layer containing a list of versions of the art. |
+| `,` comma                         | Red,&nbsp;Blue         | When appearing in the name of an option layer, identifies an option layer that will show for more than one option.  The list can be as long as what will fit in a layer name. |
 |   | Hello | Any layer not named as above--and not an option layer under a parent layer--will keep it's visibility as is. |
 
 Pretty simple... er... slick, eh?
 
-Note that character case doesn't matter -- even though you might notice that I, personally, use case conventions in the examples.
+**NOTE: Use only valid filename characters when naming your option layers.  Do not use slashes (/\\) and other characters that would not be valid in a filename.**
+
+Character case does not matter (even though you might notice that I, personally, use case conventions in the examples).
 
 Now, let's get to the interesting bit: option layers.  Every child layer under a double-dashed parent layer becomes the name of a version of the drawing.  For example, if the `--dialog--` layer contains three layers called `English`, `French`, and `German`, then there is assumed to be three versions of the drawing.  If these were in a drawing called `Cartoon.svg`, Slick will output three files when run:
 
@@ -185,8 +187,8 @@ Eeek!  A snake!  Due to a funky nuance of the Python language (that I won't bore
   - Nope: Inkscape SVGs only.
   - Producing PNGs and such are what your pipeline scripts are for.  Of which, Slick is only just another slick tool in your slick toolset.
     - For example, after using Slick to generate a bunch of SVGs, you may then want to run a script that uses the [Inkscape command-line](https://wiki.inkscape.org/wiki/index.php?title=Using_the_Command_Line) to export a PNG for each.
-    - It is also worth noting that [ImageMagick](https://imagemagick.org/) and [GIMP](https://www.gimp.org/) use the same rendering library for SVGs as Inkscape.  I use ImageMagick in some of my scripts.  (ImageMagick also has a GhostScript rendering option, if really wanting something different and less nice.)
-    - Most of my SVGs, however, I can simply import into Unity via [SVG Importer](http://svgimporter.com/), which converts them to meshes.  Other tools can do similar mesh conversions.
+    - It is also worth noting that [ImageMagick](https://imagemagick.org/) and [GIMP](https://www.gimp.org/) use the same rendering library (cairo/librsvg) for SVGs as Inkscape (while also noting cairo version differences and/or custom patches Inkscape may make to cairo).  I use ImageMagick in some of my scripts.  (ImageMagick also has a GhostScript rendering option, if really wanting something different than cairo, and less nice.)
+    - Most of my SVGs, however, I can simply import into Unity 2017 via [SVG Importer](http://svgimporter.com/), which converts them to meshes.  Other tools can do similar mesh conversions.
     - Note to self: Blog about how to squeeze a bit more image quality out of PNGs with ImageMagick and oversampling.  Note also that Inkscape 1.0 PNG export now has a much-wanted antialiasing setting with a few quality options.
 
 - Well, maybe add plain SVG export... um... nope.
